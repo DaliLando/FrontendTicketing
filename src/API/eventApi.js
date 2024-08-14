@@ -2,9 +2,9 @@ import axios from 'axios';
 import { getLocalStorage } from '../helpers/localStorage';
 
 
-export const fetchEvents = async () => {
+export const fetchEvents = async (cat) => {
   try {
-    const response = await axios.get(process.env.REACT_APP_URI+"/event/category/:category");
+    const response = await axios.get(process.env.REACT_APP_URI+`/event/category/${cat}`);
     return response.data;
   } catch (error) {
     console.error('Error fetching events:', error);
