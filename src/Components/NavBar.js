@@ -1,4 +1,3 @@
-// import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import {Link, useLocation, useNavigate} from 'react-router-dom'
@@ -6,7 +5,6 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import { getLocalStorage, removeLocalStorage } from '../helpers/localStorage';
 import { useEffect, useState } from 'react';
 import { Container } from 'react-bootstrap';
-// import Avatar from '@mui/material/Avatar';
 const CustomNavbar = () => {
 
 
@@ -31,7 +29,7 @@ const publicNav =()=>{
   return (<Navbar className="bg-dark">
     <Container>
       <Navbar.Brand as={Link} to="/" style={{color:"white" , fontFamily:"Playfair Display",fontWeight:"bold" }}>
-        Kosli maak
+        KOSLI MAAK
       </Navbar.Brand>
       <Navbar.Toggle />
       <Navbar.Collapse className="justify-content-end" >
@@ -48,12 +46,11 @@ const publicNav =()=>{
   const navForUser =()=>{
     return( <Navbar className="bg-dark">
       <Container>
-        <Navbar.Brand as={Link} to="/" style={{color:"white" , fontFamily:"Playfair Display",fontWeight:"bold"}}>
-          Kosli maak
+        <Navbar.Brand as={Link} to="/" style={{color:"white" }}>
+        KOSLI MAAK
         </Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end" >
-        {/* <Avatar >{user?.firstName.slice(0,1)}</Avatar> */}
         <Dropdown data-bs-theme="dark">
         <Dropdown.Toggle id="dropdown-button-dark-example1" variant="secondary" 
         style={{backgroundColor:"transparent" , border:"none" , cursor:"pointer"}}>
@@ -61,11 +58,10 @@ const publicNav =()=>{
         </Dropdown.Toggle>
 
         <Dropdown.Menu >
-          <Dropdown.Item as={Link} to="/profile" active>
-            profile
+          <Dropdown.Item as={Link} to="/profile">
+            Profile
           </Dropdown.Item>
-          <Dropdown.Item href="#/action-2">Tickets</Dropdown.Item>
-          <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+          <Dropdown.Item as={Link} to="/tickets">Tickets</Dropdown.Item>
           <Dropdown.Divider />
           <Dropdown.Item onClick={()=>handelLogout()}>LogOut</Dropdown.Item>
         </Dropdown.Menu>
@@ -78,7 +74,7 @@ const publicNav =()=>{
   const navForAdmin =()=>{
     return( <Navbar className="bg-dark">
       <Container>
-        <Navbar.Brand style={{color:"white" , fontFamily:"Playfair Display" , fontWeight:"bold"}}>
+        <Navbar.Brand as={Link} to="/admin"style={{color:"white"}}>
           Kosli maak
         </Navbar.Brand>
         <Navbar.Toggle />
@@ -90,11 +86,9 @@ const publicNav =()=>{
         </Dropdown.Toggle>
 
         <Dropdown.Menu >
-        <Dropdown.Item href="#/action-1" active>
-            profile
-        </Dropdown.Item>
-        <Dropdown.Item href="#/action-2">Stats</Dropdown.Item>
-        <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+        <Dropdown.Item as={Link} to="/admin">Dash</Dropdown.Item>
+        <Dropdown.Item as={Link} to="/stats">Stats</Dropdown.Item>
+        
         <Dropdown.Divider />
         <Dropdown.Item onClick={()=>handelLogout()}>LogOut</Dropdown.Item>
         </Dropdown.Menu>
