@@ -25,8 +25,4 @@ export const findTicket = async (id)=> {
     let token = getLocalStorage("token")
     let {data}= await axios.get(process.env.REACT_APP_URI+`/ticket/findticket/${id}`,{headers:{"Authorization":token}})
 return data;
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> dd89c6c6b75eeea2dd53bcfd9f174be3e132f7d2

@@ -86,8 +86,4 @@ const UserTickets = () => {
   )
 }
 
-<<<<<<< HEAD
 export default UserTickets
-=======
-export default UserTickets
->>>>>>> dd89c6c6b75eeea2dd53bcfd9f174be3e132f7d2
