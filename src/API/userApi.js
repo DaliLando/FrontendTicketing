@@ -16,9 +16,16 @@ export const updateUserProfile = async (user) => {
     return data;
 };
 
-export const updateUserPassword = async (password) => {
+export const changeUserPassword = async (passwordData) => {
     let token = getLocalStorage("token")
-    let { data } = await axios.put(`${process.env.REACT_APP_URI}/auth/password`, { password }, {headers:{"Authorization":token}
+    let { data } = await axios.put(`${process.env.REACT_APP_URI}/auth/password`,  passwordData , {headers:{"Authorization":token}
     });
+    return data;
+};
+
+export const getAllUsers = async () => {
+    let token = getLocalStorage("token")
+
+    let { data } = await axios.get(`${process.env.REACT_APP_URI}/user/manage`, {headers:{"Authorization":token}});
     return data;
 };

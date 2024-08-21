@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Button, Container, Row, Col, Card, Modal } from 'react-bootstrap';
-import { getUserProfile, updateUserProfile, updateUserPassword } from '../API/userApi'; // You need to implement these API calls
+import { Form, Button, Container, Row, Col, Card, Modal, Alert } from 'react-bootstrap';
+import { getUserProfile, updateUserProfile, changeUserPassword } from '../API/userApi';
 
 const UserProfile = () => {
   const [user, setUser] = useState({
@@ -9,35 +9,64 @@ const UserProfile = () => {
     email: '',
   });
 
-  const [password, setPassword] = useState('');
+  const [passwordData, setPasswordData] = useState({
+    oldpswd: '',
+    password: '',
+    confirmPassword: ''
+  });
+
   const [showModal, setShowModal] = useState(false);
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
 
   useEffect(() => {
-    // Fetch user profile when the component mounts
     getUserProfile()
-      .then((data) => setUser(data))
-      .catch((err) => console.error(err));
+      .then((data) => {
+        setUser(data)
+
+        // localStorage.setItem("user",JSON.stringify(data))
+        })
+      .catch((err) => {
+        console.error(err)
+      });
   }, []);
 
   const handleChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
+  const handlePasswordChange = (e) => {
+    setPasswordData({ ...passwordData, [e.target.name]: e.target.value });
+  };
+
   const handleUpdateProfile = (e) => {
     e.preventDefault();
     updateUserProfile(user)
-      .then(() => alert('Profile updated successfully!'))
-      .catch((err) => console.error(err));
+      .then(() => {
+        localStorage.setItem('user',JSON.stringify(user))
+
+        setSuccess('Profile updated successfully!');
+        setError(null);
+      })
+      .catch(() => {
+        setError('Failed to update profile.');
+        setSuccess(null);
+      });
   };
 
-  const handlePasswordChange = (e) => {
+  const handlePasswordSubmit = (e) => {
     e.preventDefault();
-    updateUserPassword(password)
+    changeUserPassword(passwordData)
       .then(() => {
-        alert('Password updated successfully!');
+        setSuccess('Password changed successfully!');
+        setError(null);
         setShowModal(false);
+        setPasswordData({ oldpswd: '', password: '', confirmPassword: '' });
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        setError(err.response?.data?.msg || 'Failed to change password.');
+        setSuccess(null);
+      });
   };
 
   return (
@@ -47,6 +76,8 @@ const UserProfile = () => {
           <Card>
             <Card.Body>
               <Card.Title className="text-center">Profile</Card.Title>
+              {error && <Alert variant="danger">{error}</Alert>}
+              {success && <Alert variant="success">{success}</Alert>}
               <Form onSubmit={handleUpdateProfile}>
                 <Form.Group className="mb-3" controlId="formFirstName">
                   <Form.Label>First Name</Form.Label>
@@ -100,14 +131,36 @@ const UserProfile = () => {
           <Modal.Title>Change Password</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form onSubmit={handlePasswordChange}>
+          {error && <Alert variant="danger">{error}</Alert>}
+          <Form onSubmit={handlePasswordSubmit}>
+            <Form.Group className="mb-3" controlId="formOldPassword">
+              <Form.Label>Old Password</Form.Label>
+              <Form.Control
+                type="password"
+                placeholder="Enter old password"
+                name="oldpswd"
+                value={passwordData.oldpswd}
+                onChange={handlePasswordChange}
+              />
+            </Form.Group>
             <Form.Group className="mb-3" controlId="formNewPassword">
               <Form.Label>New Password</Form.Label>
               <Form.Control
                 type="password"
                 placeholder="Enter new password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                name="password"
+                value={passwordData.password}
+                onChange={handlePasswordChange}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formConfirmPassword">
+              <Form.Label>Confirm New Password</Form.Label>
+              <Form.Control
+                type="password"
+                placeholder="Confirm new password"
+                name="confirmPassword"
+                value={passwordData.confirmPassword}
+                onChange={handlePasswordChange}
               />
             </Form.Group>
             <Button variant="primary" type="submit">

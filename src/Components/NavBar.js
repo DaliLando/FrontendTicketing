@@ -88,6 +88,7 @@ const publicNav =()=>{
         <Dropdown.Menu >
         <Dropdown.Item as={Link} to="/admin">Dash</Dropdown.Item>
         <Dropdown.Item as={Link} to="/stats">Stats</Dropdown.Item>
+        <Dropdown.Item as={Link} to="/Manage">Manage</Dropdown.Item>
         
         <Dropdown.Divider />
         <Dropdown.Item onClick={()=>handelLogout()}>LogOut</Dropdown.Item>

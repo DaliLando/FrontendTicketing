@@ -13,6 +13,7 @@ import UserProfile from './pages/userProfile';
 import PopUp from './Components/popUp';
 import AdminStats from './pages/adminStats';
 import UserTickets from './pages/userTickets';
+import AdminManage from './pages/adminManage';
 
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
         <Route path='/admin' element={<AdminDash/>}/>
         <Route path="/update/:id" element={<UpdateEvent/>}/>
         <Route path='/stats' element={<AdminStats/>}/>
+        <Route path='/manage' element={<AdminManage/>}/>
         </Route>
       </Routes>
       </div>

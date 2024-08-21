@@ -3,6 +3,7 @@ import { signIn } from '../API/authAPI';
 import { Form, Button, Container, Row, Col, Card, Spinner } from 'react-bootstrap';
 import { getLocalStorage, setLocalStorage } from '../helpers/localStorage';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const Login = () => {
   const [credentials, setCredentials] = useState({ email: '', password: '' });
@@ -28,9 +29,10 @@ const Login = () => {
         if (user.role === "admin") {
           navigate('/admin');
         }
+        toast.success("Login success!")
       })
       .catch((err) => {
-        console.error(err);
+        toast.error(err.response.data.msg);
       })
       .finally(() => {
         setLoading(false); // Stop loading
