@@ -6,7 +6,7 @@ import './styles.css';
 import { BrowserRouter } from 'react-router-dom';
 import store from './app/store';
 import {Provider} from "react-redux"
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
   import 'react-toastify/dist/ReactToastify.css';
 
 
