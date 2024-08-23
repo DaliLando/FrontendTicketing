@@ -21,15 +21,23 @@ const UserProfile = () => {
 
   useEffect(() => {
     getUserProfile()
-      .then((data) => {
-        setUser(data)
-
-        // localStorage.setItem("user",JSON.stringify(data))
-        })
-      .catch((err) => {
-        console.error(err)
-      });
-  }, []);
+    .then((data) => {
+      console.log("Fetched user profile data:", data); // Log the data for debugging
+      
+      if (data.user) { // Check if data contains the user object
+        setUser({
+          firstName: data.user.firstName || '',
+          lastName: data.user.lastName || '',
+          email: data.user.email || '',
+        });
+      } else {
+        console.error("User data not found");
+      }
+    })
+    .catch((err) => {
+      console.error("Error fetching user profile:", err);
+    });
+}, []);
 
   const handleChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
@@ -70,7 +78,9 @@ const UserProfile = () => {
   };
 
   return (
-    <Container>
+    <div>
+ <h1 style={{textAlign:"center", marginTop:"30px"}}> Edit your profile </h1>  
+   <Container>
       <Row className="justify-content-md-center mt-5">
         <Col md="6">
           <Card>
@@ -170,6 +180,7 @@ const UserProfile = () => {
         </Modal.Body>
       </Modal>
     </Container>
+    </div>
   );
 };
 

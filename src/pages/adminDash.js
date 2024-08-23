@@ -24,7 +24,8 @@ const AdminDash = () => {
         setLoading(false);
       })
       .catch((err) => {
-        setError(err);
+        setError(err.response.data.msg);
+        setLoading(false)
       });
   }, [dispatch]);
 
@@ -33,6 +34,7 @@ const AdminDash = () => {
 
   return (
     <div>
+          <h1 style={{textAlign:"center", marginTop:"30px"}}> Manage Events : </h1>
       <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-around" }}>
         {event.map((item, index) => {
           return <EventCard event={item} key={index} />;

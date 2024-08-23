@@ -29,10 +29,12 @@ const Login = () => {
         if (user.role === "admin") {
           navigate('/admin');
         }
-        toast.success("Login success!")
+        toast.success("Login success!",
+          {position:"top-center"}
+        )
       })
       .catch((err) => {
-        toast.error(err.response.data.msg);
+        toast.error(err.response.data.msg,{position:"top-center"});
       })
       .finally(() => {
         setLoading(false); // Stop loading
@@ -40,7 +42,7 @@ const Login = () => {
   };
 
   return (
-    <Container>
+    <Container >
       <Row className="justify-content-md-center mt-5">
         <Col md="6">
           <Card>
